@@ -1,11 +1,13 @@
 import { commands, ExtensionContext } from "vscode";
 import { ConfigManager } from "./configManager";
 import { CodeGenerater } from "./codeGenerater";
+import { CodeRunnder } from "./codeRunner";
 
 export function activate(context: ExtensionContext) {
   console.log('Congratulations, "Better Online Judge" now active!');
   const configManager = new ConfigManager();
   const codeGenerater = new CodeGenerater();
+  const codeRunnder = new CodeRunnder();
   let initConfig = commands.registerCommand("betterOJ.initConfig", () => {
     configManager.createConfig();
   });
@@ -15,8 +17,8 @@ export function activate(context: ExtensionContext) {
       codeGenerater.generateSource(config);
     }
   });
-  let runCode = commands.registerCommand("betterOJ.runCode", () => {
-    console.log("runcode");
+  let runCode = commands.registerCommand("betterOJ.testMyAnswer", () => {
+    codeRunnder.run();
   });
   // The command has been defined in the package.json file
   context.subscriptions.push(initConfig);
@@ -24,4 +26,4 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(runCode);
 }
 
-export function deactivate() {}
+export function deactivate() { }

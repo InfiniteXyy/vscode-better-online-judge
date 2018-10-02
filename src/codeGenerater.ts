@@ -5,10 +5,12 @@ import { generateTemplate } from "./utils/template";
 
 export class CodeGenerater {
   public generateSource(config: ProjectConfig) {
-    let { homeworkList } = config;
+    let { homeworkList, defaultLanguage } = config;
+
     homeworkList.forEach(i => {
       try {
-        writeFileToWorkspace(`${i.title}.cpp`, generateTemplate("cpp"));
+        let lang = defaultLanguage;
+        writeFileToWorkspace(`${i.title}.${lang}`, generateTemplate(lang));
       } catch (error) {
         showInfo(error.message);
       }

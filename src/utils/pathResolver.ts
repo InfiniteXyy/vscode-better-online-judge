@@ -3,6 +3,19 @@ import * as path from "path";
 
 const configFileName = "project.config.json";
 
+
+export function joinPath(...dirs: string[]) {
+  return path.join(...dirs);
+}
+export function resolveJoinedPath(...dirs: string[]) {
+  try {
+    let workspacePath = resolveWorkspacePath()
+    return path.join(workspacePath, ...dirs);
+  } catch (error) {
+    throw error;
+  }
+}
+
 export function resolveWorkspacePath(): string {
   let workspacePath = vscode.workspace.rootPath;
   if (!workspacePath) {

@@ -12,7 +12,8 @@
   ],
   "activationEvents": [
     "onCommand:betterOJ.initConfig",
-    "onCommand:betterOJ.generateProject"
+    "onCommand:betterOJ.generateProject",
+    "onCommand:betterOJ.testMyAnswer"
   ],
   "main": "./out/extension",
   "contributes": {
@@ -28,7 +29,7 @@
         "category": "OJ"
       },
       {
-        "command": "betterOJ.runCode",
+        "command": "betterOJ.testMyAnswer",
         "title": "运行程序",
         "category": "OJ"
       }
@@ -36,8 +37,8 @@
     "menus": {
       "editor/context": [
           {
-              "command": "betterOJ.runCode",
-              "when": "editorLangId == cpp",
+              "command": "betterOJ.testMyAnswer",
+              "when": "!(editorLangId != c && editorLangId != cpp)",
               "group": "betterOJ"
           }
       ]

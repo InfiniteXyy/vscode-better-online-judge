@@ -12,8 +12,14 @@
 ## TODO
 - [x] init config
 - [x] init by template (only cpp)
-- [ ] customized menu (build & run | quick test)
-- [ ] more choices for templating (description etc.)
+- [x] customized menu (build & run)
 - [ ] test with sample input
-- [ ] different language support
+- [ ] show selections to choose a question to run
+- [ ] fetch questions from vjudge
 - [ ] status bar for example (Accepted: 1 / 6)
+- [ ] more choices for templating (description etc.)
+
+
+## Optional
+- [ ] different language support
+
