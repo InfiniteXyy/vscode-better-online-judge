@@ -1,39 +1,60 @@
 {
-    "name": "better-oj",
-    "displayName": "Better Online Judge",
-    "description": "VS Code plugin for Creating/Testing your Online Judge answer set",
-    "version": "0.0.1",
-    "publisher": "InfiniteX",
-    "engines": {
-        "vscode": "^1.27.0"
-    },
-    "categories": [
-        "Other"
+  "name": "better-oj",
+  "displayName": "Better Online Judge",
+  "description": "VS Code plugin for Creating/Testing your Online Judge answer set",
+  "version": "0.0.1",
+  "publisher": "InfiniteX",
+  "engines": {
+    "vscode": "^1.27.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:betterOJ.initConfig",
+    "onCommand:betterOJ.generateProject"
+  ],
+  "main": "./out/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "betterOJ.initConfig",
+        "title": "初始化 OJ 项目",
+        "category": "OJ"
+      },
+      {
+        "command": "betterOJ.generateProject",
+        "title": "从模板生成源代码文件",
+        "category": "OJ"
+      },
+      {
+        "command": "betterOJ.runCode",
+        "title": "运行程序",
+        "category": "OJ"
+      }
     ],
-    "activationEvents": [
-        "onCommand:extension.initConfig"
-    ],
-    "main": "./out/extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.initConfig",
-                "title": "OJ: 新建项目配置"
-            }
-        ]
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test"
-    },
-    "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.21",
-        "tslint": "^5.8.0",
-        "@types/node": "^8.10.25",
-        "@types/mocha": "^2.2.42"
+    "menus": {
+      "editor/context": [
+          {
+              "command": "betterOJ.runCode",
+              "when": "editorLangId == cpp",
+              "group": "betterOJ"
+          }
+      ]
     }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.21",
+    "tslint": "^5.8.0",
+    "@types/node": "^8.10.25",
+    "@types/mocha": "^2.2.42"
+  }
 }

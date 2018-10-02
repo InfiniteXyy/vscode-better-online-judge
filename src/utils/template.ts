@@ -1,4 +1,7 @@
-#include <iostream>
+export function generateTemplate(language: "cpp" | "c") {
+  switch (language) {
+    case "cpp":
+      return `#include <iostream>
 #include <cstring>
 #include <algorithm>
 using namespace std;
@@ -15,4 +18,9 @@ int main() {
         solve();
     }
     return 0;
+}`;
+    default:
+      return "";
+      break;
+  }
 }

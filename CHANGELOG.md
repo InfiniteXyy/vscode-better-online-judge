@@ -1,7 +1,4 @@
 # Change Log
-All notable changes to the "better-oj" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-- Initial release
+## 0.0.1 (October 2, 2018)
+- init project
+- add essential part (init config & create from template)
