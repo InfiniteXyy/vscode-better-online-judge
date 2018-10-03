@@ -4,6 +4,7 @@ import { showInfo } from "./utils/message";
 import { resolveConfigPath } from "./utils/pathResolver";
 import { writeFile, readObject } from "./utils/file";
 import { fetchHomeworkListFromVjudge } from "./utils/spider";
+import { StatusManager } from "./utils/status";
 
 export interface HomeworkConfig {
   num: string;
@@ -40,15 +41,15 @@ export class ProjectManager implements vscode.Disposable {
 
   public initProject() {
     let options = ["新建自定义项目", "从 Vjudge 中爬取"];
-
+    let configPath = resolveConfigPath();
+    if (fs.existsSync(configPath)) {
+      showInfo("配置文件已存在");
+      return;
+    }
     vscode.window.showQuickPick(options).then(value => {
       try {
         if (!value) {
           return;
-        }
-        let configPath = resolveConfigPath();
-        if (fs.existsSync(configPath)) {
-          throw new Error("配置文件已存在");
         }
         if (value === options[0]) {
           this.createEmptyProject(configPath);
@@ -57,6 +58,7 @@ export class ProjectManager implements vscode.Disposable {
         }
       } catch (error) {
         showInfo(error.message);
+        StatusManager.stopLoadingText("$(cross) 失败");
       }
     });
   }
@@ -72,8 +74,10 @@ export class ProjectManager implements vscode.Disposable {
         if (nums <= 0 || nums >= 26) {
           throw new Error("格式错误: " + inputNumber);
         }
+        StatusManager.setLoadingText("生成自定义项目配置");
         let homeworkList = this.generateHomeworkList(nums);
         writeFile(configPath, this.generateConfigData(homeworkList));
+        StatusManager.stopLoadingText("$(check) 配置生成完成");
       });
   }
 
@@ -84,11 +88,14 @@ export class ProjectManager implements vscode.Disposable {
         if (!value) {
           return;
         }
+        StatusManager.setLoadingText("从 Vjudge 上获取项目");
         fetchHomeworkListFromVjudge(value)
           .then(resultList => {
             writeFile(configPath, this.generateConfigData(resultList));
+            StatusManager.stopLoadingText("$(check) 配置生成完成");
           })
           .catch(e => {
+            StatusManager.stopLoadingText("$(cross) 配置生成失败");
             throw new Error("读取 Vjudge 失败");
           });
       });

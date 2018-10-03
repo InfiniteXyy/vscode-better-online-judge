@@ -4,7 +4,6 @@ import { CodeGenerater } from "./codeGenerater";
 import { CodeRunnder } from "./codeRunner";
 
 export function activate(context: ExtensionContext) {
-  console.log('"Better Online Judge" now active!');
   const projectManager = new ProjectManager();
   const codeGenerater = new CodeGenerater(projectManager);
   const codeRunnder = new CodeRunnder(projectManager);
