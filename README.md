@@ -14,7 +14,7 @@
 - [x] init by template (only cpp)
 - [x] customized menu (build & run)
 - [ ] test with sample input
-- [ ] show selections to choose a question to run
+- [x] show selections to choose a question to run
 - [ ] fetch questions from vjudge
 - [ ] status bar for example (Accepted: 1 / 6)
 - [ ] more choices for templating (description etc.)

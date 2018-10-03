@@ -1,7 +1,10 @@
-export function generateTemplate(language: string) {
-    switch (language) {
-        case "cpp":
-            return `#include <iostream>
+export function generateTemplate(language: string, title: string) {
+  let code = "// " + title;
+  switch (language) {
+    case "cpp":
+      code += `
+
+#include <iostream>
 #include <cstring>
 #include <algorithm>
 using namespace std;
@@ -19,8 +22,11 @@ int main() {
     }
     return 0;
 }`;
-        case "c":
-            return `#include <stdio.h>
+      break;
+    case "c":
+      code += `
+
+#include <stdio.h>
 
 solve() {
 
@@ -34,7 +40,9 @@ int main() {
     }
     return 0;
 }`;
-        default:
-            throw new Error("language not support!")
-    }
+      break;
+    default:
+      throw new Error("language not support!");
+  }
+  return code;
 }

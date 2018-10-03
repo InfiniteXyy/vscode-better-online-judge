@@ -1,19 +1,33 @@
-import { ProjectConfig } from "./configManager";
+import { ProjectManager } from "./projectManager";
 import { writeFileToWorkspace } from "./utils/file";
-import { showInfo } from "./utils/message";
+import { showInfo, showError } from "./utils/message";
 import { generateTemplate } from "./utils/template";
 
 export class CodeGenerater {
-  public generateSource(config: ProjectConfig) {
-    let { homeworkList, defaultLanguage } = config;
-
-    homeworkList.forEach(i => {
-      try {
-        let lang = defaultLanguage;
-        writeFileToWorkspace(`${i.title}.${lang}`, generateTemplate(lang));
-      } catch (error) {
-        showInfo(error.message);
-      }
-    });
+  private _projectManager: ProjectManager;
+  constructor(projectManager: ProjectManager) {
+    this._projectManager = projectManager;
+  }
+  public generateSource() {
+    let conflicts = new Array<string>();
+    try {
+      let { homeworkList, defaultLanguage } = this._projectManager.readConfig();
+      homeworkList.forEach(i => {
+        try {
+          let lang = defaultLanguage;
+          writeFileToWorkspace(
+            `${i.num}.${lang}`,
+            generateTemplate(lang, i.title)
+          );
+        } catch (error) {
+          conflicts.push(i.num);
+        }
+      });
+    } catch (error) {
+      showError(error.message);
+    }
+    if (conflicts.length !== 0) {
+      showInfo(`已存在：${conflicts.join(", ")}`);
+    }
   }
 }

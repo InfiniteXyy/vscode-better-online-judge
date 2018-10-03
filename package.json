@@ -11,16 +11,17 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:betterOJ.initConfig",
+    "onCommand:betterOJ.initProject",
     "onCommand:betterOJ.generateProject",
-    "onCommand:betterOJ.testMyAnswer"
+    "onCommand:betterOJ.runCurrentCode",
+    "onCommand:betterOJ.runCode"
   ],
   "main": "./out/extension",
   "contributes": {
     "commands": [
       {
-        "command": "betterOJ.initConfig",
-        "title": "初始化 OJ 项目",
+        "command": "betterOJ.initProject",
+        "title": "初始化 ACM 项目",
         "category": "OJ"
       },
       {
@@ -29,18 +30,23 @@
         "category": "OJ"
       },
       {
-        "command": "betterOJ.testMyAnswer",
+        "command": "betterOJ.runCurrentCode",
+        "title": "运行当前程序",
+        "category": "OJ"
+      },
+      {
+        "command": "betterOJ.runCode",
         "title": "运行程序",
         "category": "OJ"
       }
     ],
     "menus": {
       "editor/context": [
-          {
-              "command": "betterOJ.testMyAnswer",
-              "when": "!(editorLangId != c && editorLangId != cpp)",
-              "group": "betterOJ"
-          }
+        {
+          "command": "betterOJ.runCurrentCode",
+          "when": "!(editorLangId != c && editorLangId != cpp)",
+          "group": "betterOJ"
+        }
       ]
     }
   },
@@ -52,10 +58,15 @@
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
-    "typescript": "^2.6.1",
-    "vscode": "^1.1.21",
-    "tslint": "^5.8.0",
+    "@types/cheerio": "^0.22.9",
+    "@types/mocha": "^2.2.42",
     "@types/node": "^8.10.25",
-    "@types/mocha": "^2.2.42"
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.21"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2"
   }
 }
