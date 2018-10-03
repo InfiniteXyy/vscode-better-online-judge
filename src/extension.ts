@@ -2,7 +2,6 @@ import { commands, ExtensionContext } from "vscode";
 import { ProjectManager } from "./projectManager";
 import { CodeGenerater } from "./codeGenerater";
 import { CodeRunnder } from "./codeRunner";
-import { fetchHomeworkListFromVjudge } from "./utils/spider";
 
 export function activate(context: ExtensionContext) {
   console.log('"Better Online Judge" now active!');

@@ -15,8 +15,10 @@
 - [x] customized menu (build & run)
 - [ ] test with sample input
 - [x] show selections to choose a question to run
-- [ ] fetch questions from vjudge
-- [ ] status bar for example (Accepted: 1 / 6)
+- [ ] fetch from Vjudge
+  - [x] fetch Qestions
+  - [ ] fetch Details
+- [ ] status bar for example (Accepted: 1 / 6; fetching...)
 - [ ] more choices for templating (description etc.)
 
 
