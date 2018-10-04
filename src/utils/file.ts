@@ -8,6 +8,13 @@ export function writeFile(path: string, content: string) {
   fs.writeFileSync(path, content);
 }
 
+export function readFile(path: string) {
+  if (!fs.existsSync(path)) {
+    throw new Error(`${path} 文件不存在`);
+  }
+  return fs.readFileSync(path);
+}
+
 export function writeFileToWorkspace(title: string, content: string) {
   let filePath = resolveJoinedPath(title);
   if (fs.existsSync(filePath)) {

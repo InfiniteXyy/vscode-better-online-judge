@@ -1,10 +1,8 @@
-export function generateTemplate(language: string, title: string) {
-  let code = "// " + title;
+export function getDefaultTemplate(language: string) {
+  let code = "";
   switch (language) {
     case "cpp":
-      code += `
-
-#include <iostream>
+      code += `#include <iostream>
 #include <cstring>
 #include <algorithm>
 using namespace std;
@@ -24,9 +22,7 @@ int main() {
 }`;
       break;
     case "c":
-      code += `
-
-#include <stdio.h>
+      code += `#include <stdio.h>
 
 solve() {
 

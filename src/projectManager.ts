@@ -1,10 +1,11 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
-import { showInfo } from "./utils/message";
-import { resolveConfigPath } from "./utils/pathResolver";
-import { writeFile, readObject } from "./utils/file";
+import { showInfo, showError } from "./utils/message";
+import { resolveConfigPath, resolveJoinedPath } from "./utils/pathResolver";
+import { writeFile, readObject, createDir } from "./utils/file";
 import { fetchHomeworkListFromVjudge } from "./utils/spider";
 import { StatusManager } from "./utils/status";
+import { getDefaultTemplate } from "./utils/template";
 
 export interface HomeworkConfig {
   num: string;
@@ -17,11 +18,9 @@ export interface HomeworkConfig {
 
 export class ProjectConfig {
   defaultLanguage: string;
-  templates: Array<string>;
   homeworkList: Array<HomeworkConfig>;
   constructor() {
     this.defaultLanguage = "cpp";
-    this.templates = ["cpp"];
     this.homeworkList = [];
   }
   public addHomework(homework: HomeworkConfig) {
@@ -58,7 +57,7 @@ export class ProjectManager implements vscode.Disposable {
         }
       } catch (error) {
         showInfo(error.message);
-        StatusManager.stopLoadingText("$(cross) 失败");
+        StatusManager.stopLoadingText("失败");
       }
     });
   }
@@ -77,6 +76,7 @@ export class ProjectManager implements vscode.Disposable {
         StatusManager.setLoadingText("生成自定义项目配置");
         let homeworkList = this.generateHomeworkList(nums);
         writeFile(configPath, this.generateConfigData(homeworkList));
+        this.createTemplateFolder();
         StatusManager.stopLoadingText("$(check) 配置生成完成");
       });
   }
@@ -92,13 +92,24 @@ export class ProjectManager implements vscode.Disposable {
         fetchHomeworkListFromVjudge(value)
           .then(resultList => {
             writeFile(configPath, this.generateConfigData(resultList));
+            this.createTemplateFolder();
             StatusManager.stopLoadingText("$(check) 配置生成完成");
           })
           .catch(e => {
-            StatusManager.stopLoadingText("$(cross) 配置生成失败");
-            throw new Error("读取 Vjudge 失败");
+            StatusManager.stopLoadingText("配置生成失败");
+            showError("配置生成失败");
           });
       });
+  }
+
+  private createTemplateFolder() {
+    createDir("templates");
+    ["cpp", "c"].forEach(item => {
+      writeFile(
+        resolveJoinedPath("templates", `template.${item}`),
+        getDefaultTemplate(item)
+      );
+    });
   }
 
   private generateConfigData(homeowrkList: Array<HomeworkConfig>): string {

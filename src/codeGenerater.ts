@@ -1,7 +1,7 @@
 import { ProjectManager } from "./projectManager";
-import { writeFileToWorkspace } from "./utils/file";
+import { writeFileToWorkspace, readFile } from "./utils/file";
 import { showInfo, showError } from "./utils/message";
-import { generateTemplate } from "./utils/template";
+import { resolveJoinedPath } from "./utils/pathResolver";
 
 export class CodeGenerater {
   private _projectManager: ProjectManager;
@@ -14,11 +14,13 @@ export class CodeGenerater {
       let { homeworkList, defaultLanguage } = this._projectManager.readConfig();
       homeworkList.forEach(i => {
         try {
-          let lang = defaultLanguage;
-          writeFileToWorkspace(
-            `${i.num}.${lang}`,
-            generateTemplate(lang, i.title)
-          );
+          let lang = i.language ? i.language : defaultLanguage;
+          let content =
+            "// " +
+            i.title +
+            "\n" +
+            readFile(resolveJoinedPath("templates", `template.${lang}`));
+          writeFileToWorkspace(`${i.num}.${lang}`, content);
         } catch (error) {
           conflicts.push(i.num);
         }
