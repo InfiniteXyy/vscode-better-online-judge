@@ -16,10 +16,12 @@ export async function fetchHomeworkListFromVjudge(url: string) {
     })
     // read homework detail pages
     .then((list: Array<HomeworkConfig>) => {
-      list.forEach(element => {
-        element.inputSample = "";
-        element.outputSample = "";
-      });
-      return list;
+      return list.map(item => ({
+        num: item.num,
+        language: "",
+        title: item.title,
+        inputSample: "",
+        outputSample: ""
+      }));
     });
 }

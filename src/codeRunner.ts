@@ -16,14 +16,17 @@ export class CodeRunnder implements Disposable {
   public run() {
     try {
       let config = this._projectManager.readConfig();
-      let options = config.homeworkList.map(i => ({
-        description: config.defaultLanguage,
-        label: `${i.num}: ${i.title}`,
-        path: resolveJoinedPath(`${i.num}.${config.defaultLanguage}`)
-      }));
+      let options = config.homeworkList.map(i => {
+        let lang = i.language ? i.language : config.defaultLanguage;
+        return {
+          description: lang,
+          label: `${i.num}: ${i.title}`,
+          path: resolveJoinedPath(`${i.num}.${lang}`)
+        };
+      });
       window.showQuickPick(options).then(value => {
         if (value) {
-          this.runCode(value.path, value.label);
+          this.runCode(value.path, value.description);
         }
       });
     } catch (error) {

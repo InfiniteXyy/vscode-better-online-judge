@@ -1,9 +1,9 @@
 {
   "name": "better-oj",
   "displayName": "Better Online Judge",
-  "description": "VS Code plugin for Creating/Testing your Online Judge answer set",
-  "version": "0.0.1",
-  "publisher": "InfiniteX",
+  "description": "VS Code plugin for Creating/Running your Online Judge answer set",
+  "version": "0.0.1.1",
+  "publisher": "YiyangXu",
   "engines": {
     "vscode": "^1.27.0"
   },
@@ -70,5 +70,10 @@
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "elegant-spinner": "^1.0.1"
+  },
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/InfiniteXyy/vscode-better-online-judge"
   }
 }

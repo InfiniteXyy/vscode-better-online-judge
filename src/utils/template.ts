@@ -24,13 +24,13 @@ int main() {
     case "c":
       code += `#include <stdio.h>
 
-solve() {
+void solve() {
 
 }
             
 int main() {
     int T;
-    scanf("%d", &T)
+    scanf("%d", &T);
     for (int i = 0; i < T; ++i) {
         solve();
     }
