@@ -5,6 +5,19 @@
 - quick fetch Contest Questions from "Vjudge"
 - easy command to run your code
 
+## Usage
+`OJ: 初始化 ACM 项目`
+Create contest folder
+![image](https://github.com/InfiniteXyy/vscode-better-online-judge/tree/master/static/screenshots/from_vj.gif)
+
+`OJ: 从模版生成源代码`
+Generate Code from templates
+![image](https://github.com/InfiniteXyy/vscode-better-online-judge/tree/master/static/screenshots/create_template.gif)
+
+`OJ: 运行程序`
+Run certain code
+![image](https://github.com/InfiniteXyy/vscode-better-online-judge/tree/master/static/screenshots/runcode.gif)
+
 ## Extension Settings
 ```json
 ...
