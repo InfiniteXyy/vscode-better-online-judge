@@ -14,7 +14,10 @@ export function activate(context: ExtensionContext) {
     codeGenerater.generateSource();
   });
   let runCode = commands.registerCommand("betterOJ.runCode", () => {
-    codeRunnder.run();
+    codeRunnder.run(false);
+  });
+  let runCodeWithSampleInput = commands.registerCommand("betterOJ.runCodeWithSampleInput", () => {
+    codeRunnder.run(true);
   });
   let runCurrentCode = commands.registerCommand(
     "betterOJ.runCurrentCode",
@@ -26,6 +29,7 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(initProject);
   context.subscriptions.push(generater);
   context.subscriptions.push(runCode);
+  context.subscriptions.push(runCodeWithSampleInput);
   context.subscriptions.push(runCurrentCode);
 }
 
