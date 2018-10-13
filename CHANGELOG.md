@@ -1,4 +1,8 @@
 # Change Log
+## 0.0.6 (October 13, 2018)
+- fix bugs
+  - when folders contains space, it main crash
+  - only c/cpp file will show "运行当前程序"
 
 ## 0.0.5 (October 5, 2018)
 - with key bindings (ctrl+b r/t)

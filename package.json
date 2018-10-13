@@ -2,7 +2,7 @@
   "name": "better-oj",
   "displayName": "Better Online Judge",
   "description": "VS Code plugin for Creating/Running your Online Judge answer set",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "publisher": "YiyangXu",
   "engines": {
     "vscode": "^1.27.0"
@@ -62,7 +62,7 @@
       "editor/context": [
         {
           "command": "betterOJ.runCurrentCode",
-          "when": "!(editorLangId != c && editorLangId != cpp)",
+          "when": "editorLangId =~ /(c|cpp)/",
           "group": "betterOJ"
         }
       ]

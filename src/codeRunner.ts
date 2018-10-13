@@ -63,7 +63,7 @@ export class CodeRunnder implements Disposable {
     let command = compileCommands[languageId];
     let outName = fileName.split(".")[0] + ".out";
     let outPath = resolveJoinedPath("out", outName ? outName : "out");
-    term.sendText(`${command} ${uri} -o ${outPath}`);
+    term.sendText(`${command} "${uri}" -o "${outPath}"`);
     term.sendText(joinPath("out", `${outName}`));
     if (sampleInput) {
       term.sendText(sampleInput);
