@@ -2,7 +2,7 @@
   "name": "better-oj",
   "displayName": "Better Online Judge",
   "description": "VS Code plugin for Creating/Running your Online Judge answer set",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publisher": "YiyangXu",
   "engines": {
     "vscode": "^1.27.0"
@@ -14,6 +14,7 @@
     "onCommand:betterOJ.initProject",
     "onCommand:betterOJ.generateProject",
     "onCommand:betterOJ.runCurrentCode",
+    "onCommand:betterOJ.testCurrentCode",
     "onCommand:betterOJ.runCode",
     "onCommand:betterOJ.runCodeWithSampleInput"
   ],
@@ -33,6 +34,11 @@
       {
         "command": "betterOJ.runCurrentCode",
         "title": "运行当前程序",
+        "category": "OJ"
+      },
+      {
+        "command": "betterOJ.testCurrentCode",
+        "title": "用 Sample 测试",
         "category": "OJ"
       },
       {
@@ -62,6 +68,11 @@
       "editor/context": [
         {
           "command": "betterOJ.runCurrentCode",
+          "when": "editorLangId =~ /(c|cpp)/",
+          "group": "betterOJ"
+        },
+        {
+          "command": "betterOJ.testCurrentCode",
           "when": "editorLangId =~ /(c|cpp)/",
           "group": "betterOJ"
         }

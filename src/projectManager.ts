@@ -12,8 +12,8 @@ export interface HomeworkConfig {
   title: string;
   language?: string;
   oj?: string;
-  inputSample: string;
-  outputSample: string;
+  inputSample?: string;
+  outputSample?: string;
 }
 
 export class ProjectConfig {
@@ -76,7 +76,7 @@ export class ProjectManager implements vscode.Disposable {
         StatusManager.setLoadingText("生成自定义项目配置");
         let homeworkList = this.generateHomeworkList(nums);
         writeFile(configPath, this.generateConfigData(homeworkList));
-        this.createTemplateFolder();
+        this.createTemplateFolder(homeworkList);
         StatusManager.stopLoadingText("$(check) 配置生成完成");
       });
   }
@@ -92,7 +92,7 @@ export class ProjectManager implements vscode.Disposable {
         fetchHomeworkListFromVjudge(value)
           .then(resultList => {
             writeFile(configPath, this.generateConfigData(resultList));
-            this.createTemplateFolder();
+            this.createTemplateFolder(resultList);
             StatusManager.stopLoadingText("$(check) 配置生成完成");
           })
           .catch(e => {
@@ -102,13 +102,17 @@ export class ProjectManager implements vscode.Disposable {
       });
   }
 
-  private createTemplateFolder() {
+  private createTemplateFolder(resultList: Array<HomeworkConfig>) {
     createDir("templates");
     ["cpp", "c"].forEach(item => {
       writeFile(
         resolveJoinedPath("templates", `template.${item}`),
         getDefaultTemplate(item)
       );
+    });
+    createDir("samples");
+    resultList.forEach(item => {
+      writeFile(resolveJoinedPath("samples", `${item.num}.in`), "");
     });
   }
 
@@ -125,9 +129,7 @@ export class ProjectManager implements vscode.Disposable {
       homeowrkList.push({
         num: num,
         language: "",
-        title: "Problem " + num,
-        inputSample: "",
-        outputSample: ""
+        title: "Problem " + num
       });
     }
     return homeowrkList;

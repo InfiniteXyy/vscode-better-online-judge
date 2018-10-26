@@ -20,8 +20,7 @@ export async function fetchHomeworkListFromVjudge(url: string) {
         num: item.num,
         language: "",
         title: item.title,
-        inputSample: "",
-        outputSample: ""
+        oj: item.oj
       }));
     });
 }

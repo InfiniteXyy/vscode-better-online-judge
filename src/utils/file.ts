@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import { resolveJoinedPath } from "./pathResolver";
+import { showInfo } from "./message";
 
 export function writeFile(path: string, content: string) {
   if (fs.existsSync(path)) {
@@ -35,5 +36,19 @@ export function createDir(name: string) {
   let dirPath = resolveJoinedPath(name);
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath);
+  }
+}
+
+export function readSampleInput(problemName: string) {
+  let actualName = problemName.split(".")[0];
+  let input = "";
+  try {
+    input = readFile(
+      resolveJoinedPath("samples", actualName + ".in")
+    ).toString();
+  } catch (error) {
+    showInfo(actualName + " 的 Sample Input 不存在");
+  } finally {
+    return input;
   }
 }

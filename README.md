@@ -48,6 +48,8 @@ Run certain code
   - [x] fetch Qestions
   - [ ] fetch Details
 - [x] status bar for example (Accepted: 1 / 6; fetching...)
+- [ ] migrate from old config.json
+- [ ] get original problem from poj/hoj/51node etc
 
 ## Optional
 

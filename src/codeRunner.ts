@@ -1,6 +1,6 @@
 import { Disposable, window, TextDocument, Terminal, workspace } from "vscode";
 import { showInfo } from "./utils/message";
-import { createDir } from "./utils/file";
+import { createDir, readSampleInput } from "./utils/file";
 import { resolveJoinedPath, joinPath } from "./utils/pathResolver";
 import { ProjectManager } from "./projectManager";
 
@@ -18,12 +18,13 @@ export class CodeRunnder implements Disposable {
       let config = this._projectManager.readConfig();
       let options = config.homeworkList.map(i => {
         let lang = i.language ? i.language : config.defaultLanguage;
+        let input = readSampleInput(i.num);
         return {
-          description: lang + (withSampleInput ? "  " + `输入: ${i.inputSample}` : ""),
+          description: lang + (withSampleInput ? "  " + `输入: ${input}` : ""),
           label: `${i.num}: ${i.title}`,
           path: resolveJoinedPath(`${i.num}.${lang}`),
           lang: lang,
-          input: withSampleInput ? i.inputSample : undefined
+          input: withSampleInput ? input : undefined
         };
       });
       window.showQuickPick(options).then(value => {
@@ -40,11 +41,16 @@ export class CodeRunnder implements Disposable {
     }
   }
 
-  public runCurrentCode() {
+  public runCurrentCode(test?: boolean) {
     try {
       let document = this.getActiveFile();
       document.save();
-      this.runCode(document.uri.fsPath, document.languageId);
+      if (test) {
+        let input = readSampleInput(document.uri.toString().replace(/^.*[\\\/]/, ""));
+        this.runCode(document.uri.fsPath, document.languageId, input);
+      } else {
+        this.runCode(document.uri.fsPath, document.languageId);
+      }
     } catch (error) {
       showInfo(error.message);
     }

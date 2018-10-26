@@ -25,12 +25,19 @@ export function activate(context: ExtensionContext) {
       codeRunnder.runCurrentCode();
     }
   );
+  let testCurrentCode = commands.registerCommand(
+    "betterOJ.testCurrentCode",
+    () => {
+      codeRunnder.runCurrentCode(true);
+    }
+  );
   // The command has been defined in the package.json file
   context.subscriptions.push(initProject);
   context.subscriptions.push(generater);
   context.subscriptions.push(runCode);
   context.subscriptions.push(runCodeWithSampleInput);
   context.subscriptions.push(runCurrentCode);
+  context.subscriptions.push(testCurrentCode);
 }
 
 export function deactivate() {

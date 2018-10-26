@@ -1,4 +1,8 @@
 # Change Log
+## 0.0.7 (October 26, 2018)
+- show problem oj in json file
+- better input by using file
+
 ## 0.0.6 (October 13, 2018)
 - fix bugs
   - when folders contains space, it main crash
