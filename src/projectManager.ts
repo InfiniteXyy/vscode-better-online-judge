@@ -111,7 +111,7 @@ export class ProjectManager implements vscode.Disposable {
 
   private async createTemplateFolder(resultList: ProblemConfig[]) {
     let shouldCreateTemplates = true;
-    if (workspace.getConfiguration("better-oj").has("globalTemplatesFolder")) {
+    if (!!workspace.getConfiguration("better-oj").get("globalTemplatesFolder")) {
       // 若配置了全局模版文件，询问是否要额外生成本地路径
       const select = await vscode.window.showQuickPick(["使用全局模版", "创建本地模版"], {
         placeHolder: "检测到全局模版配置",

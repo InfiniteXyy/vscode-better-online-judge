@@ -2,7 +2,7 @@
   "name": "better-oj",
   "displayName": "Better Online Judge",
   "description": "VS Code plugin for Creating/Running your Online Judge answer set",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "publisher": "YiyangXu",
   "engines": {
     "vscode": "^1.44.0"
