@@ -2,7 +2,8 @@ export function getDefaultTemplate(language: string) {
   let code = "";
   switch (language) {
     case "cpp":
-      code += `#include <iostream>
+      code += `// {{ title }} - {{ date }}
+#include <iostream>
 #include <cstring>
 #include <algorithm>
 using namespace std;
@@ -22,7 +23,8 @@ int main() {
 }`;
       break;
     case "c":
-      code += `#include <stdio.h>
+      code += `// {{ title }} - {{ date }}
+#include <stdio.h>
 
 void solve() {
 

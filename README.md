@@ -51,7 +51,7 @@ Run certain code
 - [ ] migrate from old config.json
 - [ ] get original problem from poj/hoj/51node etc
 - [ ] problem set web ui
-- [ ] global config
+- [x] global config
 
 ## Optional
 

@@ -24,6 +24,11 @@ export function writeFileToWorkspace(title: string, content: string) {
   writeFile(filePath, content);
 }
 
+export function existsFileInWorkspace(title: string): boolean {
+  let filePath = resolveJoinedPath(title);
+  return fs.existsSync(filePath);
+}
+
 export function readObject(path: string): Object {
   if (!fs.existsSync(path)) {
     throw new Error("文件不存在");

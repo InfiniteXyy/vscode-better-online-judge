@@ -16,7 +16,7 @@ export class CodeRunnder implements Disposable {
   public run(withSampleInput: boolean) {
     try {
       let config = this._projectManager.readConfig();
-      let options = config.homeworkList.map(i => {
+      let options = config.problemList.map(i => {
         let lang = i.language ? i.language : config.defaultLanguage;
         let input = readSampleInput(i.num);
         return {
@@ -24,7 +24,7 @@ export class CodeRunnder implements Disposable {
           label: `${i.num}: ${i.title}`,
           path: resolveJoinedPath(`${i.num}.${lang}`),
           lang: lang,
-          input: withSampleInput ? input : undefined
+          input: withSampleInput ? input : undefined,
         };
       });
       window.showQuickPick(options).then(value => {
@@ -46,7 +46,9 @@ export class CodeRunnder implements Disposable {
       let document = this.getActiveFile();
       document.save();
       if (test) {
-        let input = readSampleInput(document.uri.toString().replace(/^.*[\\\/]/, ""));
+        let input = readSampleInput(
+          document.uri.toString().replace(/^.*[\\\/]/, "")
+        );
         this.runCode(document.uri.fsPath, document.languageId, input);
       } else {
         this.runCode(document.uri.fsPath, document.languageId);
@@ -61,8 +63,7 @@ export class CodeRunnder implements Disposable {
     let term = this.selectTerminal();
     term.show();
     let fileName = uri.toString().replace(/^.*[\\\/]/, "");
-    let _config = workspace.getConfiguration("better-oj");
-    let compileCommands = _config.get<any>("executeMap");
+    const compileCommands: any = workspace.getConfiguration("better-oj").get("executeMap");
     if (!compileCommands || !compileCommands.hasOwnProperty(languageId)) {
       throw new Error(languageId + " 未支持");
     }

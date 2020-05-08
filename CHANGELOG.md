@@ -1,6 +1,9 @@
 # Change Log
 ## 0.0.8 (May 8, 2020)
+- update to vscode 1.44
+- support problem web view
 - support global template
+- (beta) custom template output like `// {{ title }} - {{ date }}`
 
 ## 0.0.7 (October 26, 2018)
 - show problem oj in json file

@@ -1,6 +1,6 @@
 import Axios from "axios";
 import * as cheerio from "cheerio";
-import { HomeworkConfig } from "../projectManager";
+import { ProblemConfig } from "../projectManager";
 
 export async function fetchHomeworkListFromVjudge(url: string) {
   return await Axios.get(url)
@@ -15,7 +15,7 @@ export async function fetchHomeworkListFromVjudge(url: string) {
       return descriptionObj.problems;
     })
     // read homework detail pages
-    .then((list: Array<HomeworkConfig>) => {
+    .then((list: Array<ProblemConfig>) => {
       return list.map(item => ({
         num: item.num,
         language: "",

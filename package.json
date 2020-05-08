@@ -2,10 +2,10 @@
   "name": "better-oj",
   "displayName": "Better Online Judge",
   "description": "VS Code plugin for Creating/Running your Online Judge answer set",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "publisher": "YiyangXu",
   "engines": {
-		"vscode": "^1.44.0"
+    "vscode": "^1.44.0"
   },
   "categories": [
     "Other"
@@ -16,7 +16,8 @@
     "onCommand:betterOJ.runCurrentCode",
     "onCommand:betterOJ.testCurrentCode",
     "onCommand:betterOJ.runCode",
-    "onCommand:betterOJ.runCodeWithSampleInput"
+    "onCommand:betterOJ.runCodeWithSampleInput",
+    "onCommand:betterOJ.openProblemWebUI"
   ],
   "main": "./out/extension",
   "contributes": {
@@ -38,7 +39,7 @@
       },
       {
         "command": "betterOJ.testCurrentCode",
-        "title": "用 Sample 测试",
+        "title": "用 Sample Input 运行当前程序",
         "category": "OJ"
       },
       {
@@ -48,7 +49,12 @@
       },
       {
         "command": "betterOJ.runCodeWithSampleInput",
-        "title": "使用 Sample Input 测试程序",
+        "title": "用 Sample Input 运行程序",
+        "category": "OJ"
+      },
+      {
+        "command": "betterOJ.openProblemWebUI",
+        "title": "打开题目 Web 页面",
         "category": "OJ"
       }
     ],
@@ -82,9 +88,10 @@
       "type": "object",
       "title": "Better Online Judge configuration",
       "properties": {
-        "better-oj.globalTemplatesPath": {
+        "better-oj.globalTemplatesFolder": {
           "type": "string",
-          "default": ""
+          "default": "",
+          "description": "Set global template folder. Name your template file as template.<ext>"
         },
         "better-oj.executeMap": {
           "type": "object",
@@ -99,24 +106,24 @@
     }
   },
   "scripts": {
-		"vscode:prepublish": "yarn run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "yarn run compile",
-		"test": "node ./out/test/runTest.js"
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile",
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.9",
     "@types/elegant-spinner": "^1.0.0",
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^5.2.7",
-		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.44.0",
-		"glob": "^7.1.5",
-		"mocha": "^6.2.2",
-		"typescript": "^3.6.4",
-		"tslint": "^5.20.0",
-		"vscode-test": "^1.2.2",
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.44.0",
+    "glob": "^7.1.5",
+    "mocha": "^6.2.2",
+    "typescript": "^3.6.4",
+    "tslint": "^5.20.0",
+    "vscode-test": "^1.2.2",
     "prettier": "2.0.5"
   },
   "dependencies": {

@@ -1,7 +1,8 @@
-import { commands, ExtensionContext } from "vscode";
+import { commands, ExtensionContext, Uri, env } from "vscode";
 import { ProjectManager } from "./projectManager";
 import { CodeGenerater } from "./codeGenerater";
 import { CodeRunnder } from "./codeRunner";
+import { showInfo } from "./utils/message";
 
 export function activate(context: ExtensionContext) {
   const projectManager = new ProjectManager();
@@ -19,18 +20,20 @@ export function activate(context: ExtensionContext) {
   let runCodeWithSampleInput = commands.registerCommand("betterOJ.runCodeWithSampleInput", () => {
     codeRunnder.run(true);
   });
-  let runCurrentCode = commands.registerCommand(
-    "betterOJ.runCurrentCode",
-    () => {
-      codeRunnder.runCurrentCode();
+  let runCurrentCode = commands.registerCommand("betterOJ.runCurrentCode", () => {
+    codeRunnder.runCurrentCode();
+  });
+  let testCurrentCode = commands.registerCommand("betterOJ.testCurrentCode", () => {
+    codeRunnder.runCurrentCode(true);
+  });
+  let openWebUI = commands.registerCommand("betterOJ.openProblemWebUI", () => {
+    const url = projectManager.readConfig().sourceURL;
+    if (url) {
+      env.openExternal(Uri.parse(url));
+    } else {
+      showInfo("本地项目无法打开 Web 页面");
     }
-  );
-  let testCurrentCode = commands.registerCommand(
-    "betterOJ.testCurrentCode",
-    () => {
-      codeRunnder.runCurrentCode(true);
-    }
-  );
+  });
   // The command has been defined in the package.json file
   context.subscriptions.push(initProject);
   context.subscriptions.push(generater);
@@ -38,6 +41,7 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(runCodeWithSampleInput);
   context.subscriptions.push(runCurrentCode);
   context.subscriptions.push(testCurrentCode);
+  context.subscriptions.push(openWebUI);
 }
 
 export function deactivate() {
