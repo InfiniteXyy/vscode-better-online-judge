@@ -50,6 +50,8 @@ Run certain code
 - [x] status bar for example (Accepted: 1 / 6; fetching...)
 - [ ] migrate from old config.json
 - [ ] get original problem from poj/hoj/51node etc
+- [ ] problem set web ui
+- [ ] global config
 
 ## Optional
 
@@ -57,4 +59,5 @@ Run certain code
 - [ ] i18n
 
 ## thanks
+
 [code runner](https://github.com/formulahendry/vscode-code-runner)

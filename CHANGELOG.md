@@ -1,4 +1,7 @@
 # Change Log
+## 0.0.8 (May 8, 2020)
+- support global template
+
 ## 0.0.7 (October 26, 2018)
 - show problem oj in json file
 - better input by using file
